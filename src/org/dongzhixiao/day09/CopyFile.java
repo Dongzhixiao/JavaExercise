@@ -21,11 +21,17 @@ public class CopyFile {
 			//2
 			File desFile = new File("day09_copy.txt");
 			RandomAccessFile des = new RandomAccessFile(desFile,"rw");
-			//3
-			int data = 0;//用于保存每个读取的字节
-			//读取一个字节，只要不是-1(文件末尾)，就进行复制
-			while((data = src.read())!=-1){
-				des.write(data);
+			//3 慢
+//			int data = 0;//用于保存每个读取的字节
+//			//读取一个字节，只要不是-1(文件末尾)，就进行复制
+//			while((data = src.read())!=-1){
+//				des.write(data);
+//			}
+			//3 快
+			byte[] buff = new byte[1024*100];
+			int sum = 0 ;//每次读取的字节数
+			while((sum = src.read(buff))>0){
+				des.write(buff,0,sum);
 			}
 			
 			src.close();
